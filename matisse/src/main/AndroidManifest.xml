@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   Copyright 2017 Zhihu Inc.
 
   Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,16 +13,21 @@
   See the License for the specific language governing permissions and
   limitations under the License.
   -->
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zhihu.matisse2">
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
-        <activity android:name="com.zhihu.matisse2.ui.MatisseActivity"/>
-        <activity android:name="com.zhihu.matisse2.internal.ui.AlbumPreviewActivity"/>
-        <activity android:name="com.zhihu.matisse2.internal.ui.SelectedPreviewActivity"/>
+        <activity
+            android:name="com.zhihu.matisse2.ui.MatisseActivity"
+            android:multiprocess="true" />
+        <activity
+            android:name="com.zhihu.matisse2.internal.ui.AlbumPreviewActivity"
+            android:multiprocess="true" />
+        <activity
+            android:name="com.zhihu.matisse2.internal.ui.SelectedPreviewActivity"
+            android:multiprocess="true" />
     </application>
 </manifest>
