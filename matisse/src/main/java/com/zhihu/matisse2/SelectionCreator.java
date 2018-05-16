@@ -31,6 +31,7 @@ import com.zhihu.matisse2.filter.Filter;
 import com.zhihu.matisse2.internal.entity.CaptureStrategy;
 import com.zhihu.matisse2.internal.entity.SelectionSpec;
 import com.zhihu.matisse2.listener.OnCheckedListener;
+import com.zhihu.matisse2.listener.OnMaxFileSizeListener;
 import com.zhihu.matisse2.listener.OnSelectedListener;
 import com.zhihu.matisse2.ui.MatisseActivity;
 
@@ -225,6 +226,17 @@ public final class SelectionCreator {
     }
 
     /**
+     * Maximum file size,the unit is byte. More than this size, don't checked and show Toast
+     *
+     * @param size Maximum file size. Default value is Long.MAX_VALUE
+     * @return {@link SelectionCreator} for fluent API.
+     */
+    public SelectionCreator maxFileSize(long size) {
+        mSelectionSpec.maxFileSize = size;
+        return this;
+    }
+
+    /**
      * Capture strategy provided for the location to save photos including internal and external
      * storage and also a authority for {@link android.support.v4.content.FileProvider}.
      *
@@ -329,6 +341,11 @@ public final class SelectionCreator {
      */
     public SelectionCreator setOnCheckedListener(@Nullable OnCheckedListener listener) {
         mSelectionSpec.onCheckedListener = listener;
+        return this;
+    }
+
+    public SelectionCreator setOnMaxFileSizeListener(@Nullable OnMaxFileSizeListener listener) {
+        mSelectionSpec.onMaxFileSizeListener = listener;
         return this;
     }
 

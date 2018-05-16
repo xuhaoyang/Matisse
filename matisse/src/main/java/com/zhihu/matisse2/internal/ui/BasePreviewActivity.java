@@ -104,6 +104,25 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             @Override
             public void onClick(View v) {
                 Item item = mAdapter.getMediaItem(mPager.getCurrentItem());
+                long maxByteSize = mSpec.maxFileSize;
+                long fileSize = item.size;
+                if (fileSize == -1) {
+                    //文件不存在
+                } else {
+                    if (fileSize > maxByteSize) {
+                        // 通知 超出限制大小
+                        if (mSpec.onMaxFileSizeListener != null) {
+                            mSpec.onMaxFileSizeListener.triggerLimit();
+                        }
+                        if (!mSpec.countable) {
+                            mCheckView.setChecked(false);
+                        } else {
+                            mCheckView.setCheckedNum(CheckView.UNCHECKED);
+                        }
+                        return;
+                    }
+                }
+
                 if (mSelectedCollection.isSelected(item)) {
                     mSelectedCollection.remove(item);
                     if (mSpec.countable) {

@@ -30,9 +30,9 @@ import android.widget.TextView;
 
 import com.zhihu.matisse2.R;
 import com.zhihu.matisse2.internal.entity.Album;
+import com.zhihu.matisse2.internal.entity.IncapableCause;
 import com.zhihu.matisse2.internal.entity.Item;
 import com.zhihu.matisse2.internal.entity.SelectionSpec;
-import com.zhihu.matisse2.internal.entity.IncapableCause;
 import com.zhihu.matisse2.internal.model.SelectedItemCollection;
 import com.zhihu.matisse2.internal.ui.widget.CheckView;
 import com.zhihu.matisse2.internal.ui.widget.MediaGrid;
@@ -166,6 +166,26 @@ public class AlbumMediaAdapter extends
 
     @Override
     public void onCheckViewClicked(CheckView checkView, Item item, RecyclerView.ViewHolder holder) {
+        long maxByteSize = mSelectionSpec.maxFileSize;
+        long fileSize = item.size;
+        if (fileSize == -1) {
+            //文件不存在
+        } else {
+            if (fileSize > maxByteSize) {
+                // 通知 超出限制大小
+                if (mSelectionSpec.onMaxFileSizeListener != null) {
+                    mSelectionSpec.onMaxFileSizeListener.triggerLimit();
+                }
+                if (!mSelectionSpec.countable) {
+                    checkView.setChecked(false);
+                } else {
+                    checkView.setCheckedNum(CheckView.UNCHECKED);
+                }
+                return;
+            }
+        }
+
+
         if (mSelectionSpec.countable) {
             int checkedNum = mSelectedCollection.checkedNumOf(item);
             if (checkedNum == CheckView.UNCHECKED) {

@@ -25,6 +25,7 @@ import com.zhihu.matisse2.engine.ImageEngine;
 import com.zhihu.matisse2.engine.impl.GlideEngine;
 import com.zhihu.matisse2.filter.Filter;
 import com.zhihu.matisse2.listener.OnCheckedListener;
+import com.zhihu.matisse2.listener.OnMaxFileSizeListener;
 import com.zhihu.matisse2.listener.OnSelectedListener;
 
 import java.util.List;
@@ -52,7 +53,9 @@ public final class SelectionSpec {
     public OnSelectedListener onSelectedListener;
     public boolean originalable;
     public int originalMaxSize;
+    public long maxFileSize;//大小控制
     public OnCheckedListener onCheckedListener;
+    public OnMaxFileSizeListener onMaxFileSizeListener;
 
     private SelectionSpec() {
     }
