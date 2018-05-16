@@ -38,6 +38,7 @@ import com.zhihu.matisse2.engine.impl.PicassoEngine;
 import com.zhihu.matisse2.filter.Filter;
 import com.zhihu.matisse2.internal.entity.CaptureStrategy;
 import com.zhihu.matisse2.listener.OnCheckedListener;
+import com.zhihu.matisse2.listener.OnMaxFileSizeListener;
 import com.zhihu.matisse2.listener.OnSelectedListener;
 
 import java.util.List;
@@ -50,6 +51,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
     private static final int REQUEST_CODE_CHOOSE = 23;
 
     private UriAdapter mAdapter;
+    private Toast sToast;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +106,14 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                                 @Override
                                                 public void onCheck(boolean isChecked) {
                                                     // DO SOMETHING IMMEDIATELY HERE
-                                                    Log.e("isChecked", "onCheck: isChecked="+isChecked );
+                                                    Log.e("isChecked", "onCheck: isChecked=" + isChecked);
+                                                }
+                                            })
+                                            .maxFileSize(10 * 1024 * 1024)
+                                            .setOnMaxFileSizeListener(new OnMaxFileSizeListener() {
+                                                @Override
+                                                public void triggerLimit() {
+                                                    showToast("超出10M大小，无法上传", Toast.LENGTH_SHORT);
                                                 }
                                             })
                                             .forResult(REQUEST_CODE_CHOOSE);
@@ -115,11 +124,17 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .theme(R.style.Matisse_Dracula)
                                             .countable(false)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-
                                             .maxSelectable(9)
                                             .originalEnable(true)
                                             .maxOriginalSize(10)
                                             .imageEngine(new PicassoEngine())
+                                            .maxFileSize(20 * 1024 * 1024)
+                                            .setOnMaxFileSizeListener(new OnMaxFileSizeListener() {
+                                                @Override
+                                                public void triggerLimit() {
+                                                    showToast("超出20M大小，无法上传", Toast.LENGTH_SHORT);
+                                                }
+                                            })
                                             .forResult(REQUEST_CODE_CHOOSE);
                                     break;
                             }
@@ -142,12 +157,29 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                 });
     }
 
+    /**
+     * @param text
+     * @param duration
+     */
+    private void showToast(final CharSequence text, final int duration) {
+        cancelToast();
+        sToast = Toast.makeText(this, text, duration);
+        sToast.show();
+    }
+
+    private void cancelToast() {
+        if (sToast != null) {
+            sToast.cancel();
+            sToast = null;
+        }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
-            Log.e("OnActivityResult ",String.valueOf(Matisse.obtainOriginalState(data)));
+            Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)));
         }
     }
 
@@ -194,5 +226,6 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
     }
+
 
 }
