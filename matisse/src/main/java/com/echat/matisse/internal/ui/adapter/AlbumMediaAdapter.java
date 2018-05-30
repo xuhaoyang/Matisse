@@ -28,6 +28,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.Item;
 import com.echat.matisse.internal.model.SelectedItemCollection;
 import com.echat.matisse.internal.ui.widget.MediaGrid;
@@ -55,7 +56,7 @@ public class AlbumMediaAdapter extends
         mSelectionSpec = SelectionSpec.getInstance();
         mSelectedCollection = selectedCollection;
 
-        TypedArray ta = context.getTheme().obtainStyledAttributes(new int[]{com.echat.matisse.R.attr.item_placeholder});
+        TypedArray ta = context.getTheme().obtainStyledAttributes(new int[]{R.attr.item_placeholder});
         mPlaceholder = ta.getDrawable(0);
         ta.recycle();
 
@@ -65,7 +66,7 @@ public class AlbumMediaAdapter extends
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if (viewType == VIEW_TYPE_CAPTURE) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(com.echat.matisse.R.layout.matisse2_photo_capture_item, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.echat_photo_capture_item, parent, false);
             CaptureViewHolder holder = new CaptureViewHolder(v);
             holder.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -77,7 +78,7 @@ public class AlbumMediaAdapter extends
             });
             return holder;
         } else if (viewType == VIEW_TYPE_MEDIA) {
-            View v = LayoutInflater.from(parent.getContext()).inflate(com.echat.matisse.R.layout.matisse2_media_grid_item, parent, false);
+            View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.echat_media_grid_item, parent, false);
             return new MediaViewHolder(v);
         }
         return null;
@@ -89,7 +90,7 @@ public class AlbumMediaAdapter extends
             CaptureViewHolder captureViewHolder = (CaptureViewHolder) holder;
             Drawable[] drawables = captureViewHolder.mHint.getCompoundDrawables();
             TypedArray ta = holder.itemView.getContext().getTheme().obtainStyledAttributes(
-                    new int[]{com.echat.matisse.R.attr.capture_textColor});
+                    new int[]{R.attr.capture_textColor});
             int color = ta.getColor(0, 0);
             ta.recycle();
 
@@ -268,7 +269,7 @@ public class AlbumMediaAdapter extends
             int spanCount = ((GridLayoutManager) lm).getSpanCount();
             int screenWidth = context.getResources().getDisplayMetrics().widthPixels;
             int availableWidth = screenWidth - context.getResources().getDimensionPixelSize(
-                    com.echat.matisse.R.dimen.media_grid_spacing) * (spanCount - 1);
+                    R.dimen.echat_media_grid_spacing) * (spanCount - 1);
             mImageResize = availableWidth / spanCount;
             mImageResize = (int) (mImageResize * mSelectionSpec.thumbnailScale);
         }
@@ -304,7 +305,7 @@ public class AlbumMediaAdapter extends
         CaptureViewHolder(View itemView) {
             super(itemView);
 
-            mHint = (TextView) itemView.findViewById(com.echat.matisse.R.id.hint);
+            mHint = (TextView) itemView.findViewById(R.id.hint);
         }
     }
 

@@ -68,7 +68,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(SelectionSpec.getInstance().themeId);
         super.onCreate(savedInstanceState);
-        setContentView(com.echat.matisse.R.layout.matisse2_activity_media_preview);
+        setContentView(R.layout.echat_activity_media_preview);
         if (Platform.hasKitKat()) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
@@ -85,17 +85,17 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             mSelectedCollection.onCreate(savedInstanceState);
             mOriginalEnable = savedInstanceState.getBoolean(CHECK_STATE);
         }
-        mButtonBack = (TextView) findViewById(com.echat.matisse.R.id.button_back);
-        mButtonApply = (TextView) findViewById(com.echat.matisse.R.id.button_apply);
-        mSize = (TextView) findViewById(com.echat.matisse.R.id.size);
+        mButtonBack = (TextView) findViewById(R.id.button_back);
+        mButtonApply = (TextView) findViewById(R.id.button_apply);
+        mSize = (TextView) findViewById(R.id.size);
         mButtonBack.setOnClickListener(this);
         mButtonApply.setOnClickListener(this);
 
-        mPager = (ViewPager) findViewById(com.echat.matisse.R.id.pager);
+        mPager = (ViewPager) findViewById(R.id.pager);
         mPager.addOnPageChangeListener(this);
         mAdapter = new PreviewPagerAdapter(getSupportFragmentManager(), null);
         mPager.setAdapter(mAdapter);
-        mCheckView = (CheckView) findViewById(com.echat.matisse.R.id.check_view);
+        mCheckView = (CheckView) findViewById(R.id.check_view);
         mCheckView.setCountable(mSpec.countable);
 
         mCheckView.setOnClickListener(new View.OnClickListener() {
@@ -149,8 +149,8 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         });
 
 
-        mOriginalLayout = findViewById(com.echat.matisse.R.id.originalLayout);
-        mOriginal = findViewById(com.echat.matisse.R.id.original);
+        mOriginalLayout = findViewById(R.id.originalLayout);
+        mOriginal = findViewById(R.id.original);
         mOriginalLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -158,7 +158,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 int count = countOverMaxSize();
                 if (count > 0) {
                     IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                            getString(com.echat.matisse.R.string.error_over_original_count, count, mSpec.originalMaxSize));
+                            getString(R.string.error_over_original_count, count, mSpec.originalMaxSize));
                     incapableDialog.show(getSupportFragmentManager(),
                             IncapableDialog.class.getName());
                     return;
@@ -195,9 +195,9 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == com.echat.matisse.R.id.button_back) {
+        if (v.getId() == R.id.button_back) {
             onBackPressed();
-        } else if (v.getId() == com.echat.matisse.R.id.button_apply) {
+        } else if (v.getId() == R.id.button_apply) {
             sendBackResult(true);
             finish();
         }
@@ -245,14 +245,14 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
     private void updateApplyButton() {
         int selectedCount = mSelectedCollection.count();
         if (selectedCount == 0) {
-            mButtonApply.setText(com.echat.matisse.R.string.button_sure_default);
+            mButtonApply.setText(R.string.echat_button_sure_default);
             mButtonApply.setEnabled(false);
         } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
-            mButtonApply.setText(com.echat.matisse.R.string.button_sure_default);
+            mButtonApply.setText(R.string.echat_button_sure_default);
             mButtonApply.setEnabled(true);
         } else {
             mButtonApply.setEnabled(true);
-            mButtonApply.setText(getString(com.echat.matisse.R.string.button_sure, selectedCount));
+            mButtonApply.setText(getString(R.string.echat_button_sure, selectedCount));
         }
 
         if (mSpec.originalable) {
@@ -278,7 +278,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
 
             if (mOriginalEnable) {
                 IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                        getString(com.echat.matisse.R.string.error_over_original_size, mSpec.originalMaxSize));
+                        getString(R.string.error_over_original_size, mSpec.originalMaxSize));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());
 

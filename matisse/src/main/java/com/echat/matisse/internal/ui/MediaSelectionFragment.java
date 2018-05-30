@@ -76,13 +76,13 @@ public class MediaSelectionFragment extends Fragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(com.echat.matisse.R.layout.matisse2_fragment_media_selection, container, false);
+        return inflater.inflate(R.layout.echat_fragment_media_selection, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mRecyclerView = (RecyclerView) view.findViewById(com.echat.matisse.R.id.recyclerview);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview);
     }
 
     @Override
@@ -105,7 +105,7 @@ public class MediaSelectionFragment extends Fragment implements
         }
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), spanCount));
 
-        int spacing = getResources().getDimensionPixelSize(com.echat.matisse.R.dimen.media_grid_spacing);
+        int spacing = getResources().getDimensionPixelSize(R.dimen.echat_media_grid_spacing);
         mRecyclerView.addItemDecoration(new MediaGridInset(spanCount, spacing, false));
         mRecyclerView.setAdapter(mAdapter);
         mAlbumMediaCollection.onCreate(getActivity(), this);

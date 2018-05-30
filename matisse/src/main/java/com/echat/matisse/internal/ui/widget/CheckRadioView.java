@@ -7,6 +7,8 @@ import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.AttributeSet;
 
+import com.echat.matisse.R;
+
 public class CheckRadioView extends AppCompatImageView {
 
     private Drawable mDrawable;
@@ -28,21 +30,21 @@ public class CheckRadioView extends AppCompatImageView {
 
     private void init() {
         selectedColor = ResourcesCompat.getColor(
-                getResources(), com.echat.matisse.R.color.zhihu_item_checkCircle_backgroundColor,
+                getResources(), R.color.zhihu_item_checkCircle_backgroundColor,
                 getContext().getTheme());
         unSelectedColor = ResourcesCompat.getColor(
-                getResources(), com.echat.matisse.R.color.zhihu_check_original_radio_disable,
+                getResources(), R.color.zhihu_check_original_radio_disable,
                 getContext().getTheme());
         setChecked(false);
     }
 
     public void setChecked(boolean enable){
         if(enable){
-            setImageResource(com.echat.matisse.R.drawable.ic_preview_radio_on);
+            setImageResource(R.drawable.ic_preview_radio_on);
             mDrawable=getDrawable();
             mDrawable.setColorFilter(selectedColor, PorterDuff.Mode.SRC_IN);
         }else {
-            setImageResource(com.echat.matisse.R.drawable.ic_preview_radio_off);
+            setImageResource(R.drawable.ic_preview_radio_off);
             mDrawable=getDrawable();
             mDrawable.setColorFilter(unSelectedColor, PorterDuff.Mode.SRC_IN);
         }

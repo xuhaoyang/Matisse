@@ -97,7 +97,7 @@ public class MatisseActivity extends AppCompatActivity implements
         setTheme(mSpec.themeId);
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.matisse2_activity_matisse);
+        setContentView(R.layout.echat_activity_matisse);
 
         if (mSpec.needOrientationRestriction()) {
             setRequestedOrientation(mSpec.orientation);
@@ -238,15 +238,15 @@ public class MatisseActivity extends AppCompatActivity implements
         if (selectedCount == 0) {
             mButtonPreview.setEnabled(false);
             mButtonApply.setEnabled(false);
-            mButtonApply.setText(getString(R.string.button_sure_default));
+            mButtonApply.setText(getString(R.string.echat_button_sure_default));
         } else if (selectedCount == 1 && mSpec.singleSelectionModeEnabled()) {
             mButtonPreview.setEnabled(true);
-            mButtonApply.setText(R.string.button_sure_default);
+            mButtonApply.setText(R.string.echat_button_sure_default);
             mButtonApply.setEnabled(true);
         } else {
             mButtonPreview.setEnabled(true);
             mButtonApply.setEnabled(true);
-            mButtonApply.setText(getString(R.string.button_sure, selectedCount));
+            mButtonApply.setText(getString(R.string.echat_button_sure, selectedCount));
         }
 
 

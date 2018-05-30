@@ -32,6 +32,8 @@ import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.echat.matisse.R;
+
 public class CheckView extends View {
 
     public static final int UNCHECKED = Integer.MIN_VALUE;
@@ -83,16 +85,16 @@ public class CheckView extends View {
         mStrokePaint.setStyle(Paint.Style.STROKE);
         mStrokePaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER));
         mStrokePaint.setStrokeWidth(STROKE_WIDTH * mDensity);
-        TypedArray ta = getContext().getTheme().obtainStyledAttributes(new int[]{com.echat.matisse.R.attr.item_checkCircle_borderColor});
+        TypedArray ta = getContext().getTheme().obtainStyledAttributes(new int[]{R.attr.item_checkCircle_borderColor});
         int defaultColor = ResourcesCompat.getColor(
-                getResources(), com.echat.matisse.R.color.zhihu_item_checkCircle_borderColor,
+                getResources(), R.color.zhihu_item_checkCircle_borderColor,
                 getContext().getTheme());
         int color = ta.getColor(0, defaultColor);
         ta.recycle();
         mStrokePaint.setColor(color);
 
         mCheckDrawable = ResourcesCompat.getDrawable(context.getResources(),
-                com.echat.matisse.R.drawable.ic_check_white_18dp, context.getTheme());
+                R.drawable.ic_check_white_18dp, context.getTheme());
     }
 
     public void setChecked(boolean checked) {
@@ -194,9 +196,9 @@ public class CheckView extends View {
             mBackgroundPaint.setAntiAlias(true);
             mBackgroundPaint.setStyle(Paint.Style.FILL);
             TypedArray ta = getContext().getTheme()
-                    .obtainStyledAttributes(new int[]{com.echat.matisse.R.attr.item_checkCircle_backgroundColor});
+                    .obtainStyledAttributes(new int[]{R.attr.item_checkCircle_backgroundColor});
             int defaultColor = ResourcesCompat.getColor(
-                    getResources(), com.echat.matisse.R.color.zhihu_item_checkCircle_backgroundColor,
+                    getResources(), R.color.zhihu_item_checkCircle_backgroundColor,
                     getContext().getTheme());
             int color = ta.getColor(0, defaultColor);
             ta.recycle();

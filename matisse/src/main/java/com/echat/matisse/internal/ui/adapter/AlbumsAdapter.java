@@ -27,6 +27,7 @@ import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.internal.entity.Album;
 
@@ -40,7 +41,7 @@ public class AlbumsAdapter extends CursorAdapter {
         super(context, c, autoRequery);
 
         TypedArray ta = context.getTheme().obtainStyledAttributes(
-                new int[]{com.echat.matisse.R.attr.album_thumbnail_placeholder});
+                new int[]{R.attr.album_thumbnail_placeholder});
         mPlaceholder = ta.getDrawable(0);
         ta.recycle();
     }
@@ -49,25 +50,25 @@ public class AlbumsAdapter extends CursorAdapter {
         super(context, c, flags);
 
         TypedArray ta = context.getTheme().obtainStyledAttributes(
-                new int[]{com.echat.matisse.R.attr.album_thumbnail_placeholder});
+                new int[]{R.attr.album_thumbnail_placeholder});
         mPlaceholder = ta.getDrawable(0);
         ta.recycle();
     }
 
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        return LayoutInflater.from(context).inflate(com.echat.matisse.R.layout.matisse2_album_list_item, parent, false);
+        return LayoutInflater.from(context).inflate(R.layout.echat_album_list_item, parent, false);
     }
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         Album album = Album.valueOf(cursor);
-        ((TextView) view.findViewById(com.echat.matisse.R.id.album_name)).setText(album.getDisplayName(context));
-        ((TextView) view.findViewById(com.echat.matisse.R.id.album_media_count)).setText(String.valueOf(album.getCount()));
+        ((TextView) view.findViewById(R.id.album_name)).setText(album.getDisplayName(context));
+        ((TextView) view.findViewById(R.id.album_media_count)).setText(String.valueOf(album.getCount()));
 
         // do not need to load animated Gif
-        SelectionSpec.getInstance().imageEngine.loadThumbnail(context, context.getResources().getDimensionPixelSize(com.echat.matisse.R
-                        .dimen.media_grid_size), mPlaceholder,
-                (ImageView) view.findViewById(com.echat.matisse.R.id.album_cover), Uri.fromFile(new File(album.getCoverPath())));
+        SelectionSpec.getInstance().imageEngine.loadThumbnail(context, context.getResources().getDimensionPixelSize(R
+                        .dimen.echat_media_grid_size), mPlaceholder,
+                (ImageView) view.findViewById(R.id.album_cover), Uri.fromFile(new File(album.getCoverPath())));
     }
 }

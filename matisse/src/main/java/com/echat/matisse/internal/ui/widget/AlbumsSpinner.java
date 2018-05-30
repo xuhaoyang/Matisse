@@ -27,6 +27,7 @@ import android.widget.AdapterView;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.utils.Platform;
 import com.echat.matisse.internal.entity.Album;
 
@@ -39,7 +40,7 @@ public class AlbumsSpinner {
     private AdapterView.OnItemSelectedListener mOnItemSelectedListener;
 
     public AlbumsSpinner(@NonNull Context context) {
-        mListPopupWindow = new ListPopupWindow(context, null, com.echat.matisse.R.attr.listPopupWindowStyle);
+        mListPopupWindow = new ListPopupWindow(context, null, R.attr.listPopupWindowStyle);
         mListPopupWindow.setModal(true);
         float density = context.getResources().getDisplayMetrics().density;
         mListPopupWindow.setContentWidth((int) (216 * density));
@@ -101,7 +102,7 @@ public class AlbumsSpinner {
         Drawable[] drawables = mSelected.getCompoundDrawables();
         Drawable right = drawables[2];
         TypedArray ta = mSelected.getContext().getTheme().obtainStyledAttributes(
-                new int[]{com.echat.matisse.R.attr.album_element_color});
+                new int[]{R.attr.album_element_color});
         int color = ta.getColor(0, 0);
         ta.recycle();
         right.setColorFilter(color, PorterDuff.Mode.SRC_IN);
@@ -111,7 +112,7 @@ public class AlbumsSpinner {
 
             @Override
             public void onClick(View v) {
-                int itemHeight = v.getResources().getDimensionPixelSize(com.echat.matisse.R.dimen.album_item_height);
+                int itemHeight = v.getResources().getDimensionPixelSize(R.dimen.echat_album_item_height);
                 mListPopupWindow.setHeight(
                         mAdapter.getCount() > MAX_SHOWN_COUNT ? itemHeight * MAX_SHOWN_COUNT
                                 : itemHeight * mAdapter.getCount());

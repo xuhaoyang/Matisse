@@ -73,7 +73,7 @@ public final class SelectionSpec {
         mimeTypeSet = null;
         mediaTypeExclusive = true;
         showSingleMediaType = false;
-        themeId = com.echat.matisse.R.style.Matisse_Zhihu;
+        themeId = R.style.Matisse_Zhihu;
         orientation = 0;
         countable = false;
         maxSelectable = 1;

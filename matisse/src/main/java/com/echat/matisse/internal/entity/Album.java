@@ -103,7 +103,7 @@ public class Album implements Parcelable {
 
     public String getDisplayName(Context context) {
         if (isAll()) {
-            return context.getString(com.echat.matisse.R.string.album_name_all);
+            return context.getString(R.string.echat_album_name_all);
         }
         return mDisplayName;
     }

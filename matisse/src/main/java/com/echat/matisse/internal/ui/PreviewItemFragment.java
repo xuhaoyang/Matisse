@@ -26,6 +26,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.internal.entity.Item;
 import com.echat.matisse.internal.utils.PhotoMetadataUtils;
@@ -47,7 +48,7 @@ public class PreviewItemFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(com.echat.matisse.R.layout.matisse2_fragment_preview_item, container, false);
+        return inflater.inflate(R.layout.echat_fragment_preview_item, container, false);
     }
 
     @Override
@@ -58,7 +59,7 @@ public class PreviewItemFragment extends Fragment {
             return;
         }
 
-        View videoPlayButton = view.findViewById(com.echat.matisse.R.id.video_play_button);
+        View videoPlayButton = view.findViewById(R.id.video_play_button);
         if (item.isVideo()) {
             videoPlayButton.setVisibility(View.VISIBLE);
             videoPlayButton.setOnClickListener(new View.OnClickListener() {
@@ -69,7 +70,7 @@ public class PreviewItemFragment extends Fragment {
                     try {
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
-                        Toast.makeText(getContext(), com.echat.matisse.R.string.error_no_video_activity, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getContext(), R.string.echat_error_no_video_activity, Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -77,7 +78,7 @@ public class PreviewItemFragment extends Fragment {
             videoPlayButton.setVisibility(View.GONE);
         }
 
-        ImageViewTouch image = (ImageViewTouch) view.findViewById(com.echat.matisse.R.id.image_view);
+        ImageViewTouch image = (ImageViewTouch) view.findViewById(R.id.image_view);
         image.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
 
         Point size = PhotoMetadataUtils.getBitmapSize(item.getContentUri(), getActivity());
@@ -92,7 +93,7 @@ public class PreviewItemFragment extends Fragment {
 
     public void resetView() {
         if (getView() != null) {
-            ((ImageViewTouch) getView().findViewById(com.echat.matisse.R.id.image_view)).resetMatrix();
+            ((ImageViewTouch) getView().findViewById(R.id.image_view)).resetMatrix();
         }
     }
 }

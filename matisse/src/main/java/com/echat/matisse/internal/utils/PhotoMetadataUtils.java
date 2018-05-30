@@ -29,6 +29,7 @@ import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.echat.matisse.MimeType;
+import com.echat.matisse.R;
 import com.echat.matisse.filter.Filter;
 import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.internal.entity.Item;
@@ -123,7 +124,7 @@ public final class PhotoMetadataUtils {
 
     public static IncapableCause isAcceptable(Context context, Item item) {
         if (!isSelectableType(context, item)) {
-            return new IncapableCause(context.getString(com.echat.matisse.R.string.error_file_type));
+            return new IncapableCause(context.getString(R.string.echat_error_file_type));
         }
 
         if (SelectionSpec.getInstance().filters != null) {

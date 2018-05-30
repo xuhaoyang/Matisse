@@ -25,6 +25,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.Item;
 import com.echat.matisse.internal.entity.SelectionSpec;
 
@@ -50,12 +51,12 @@ public class MediaGrid extends SquareFrameLayout implements View.OnClickListener
     }
 
     private void init(Context context) {
-        LayoutInflater.from(context).inflate(com.echat.matisse.R.layout.matisse2_media_grid_content, this, true);
+        LayoutInflater.from(context).inflate(R.layout.echat_media_grid_content, this, true);
 
-        mThumbnail = (ImageView) findViewById(com.echat.matisse.R.id.media_thumbnail);
-        mCheckView = (CheckView) findViewById(com.echat.matisse.R.id.check_view);
-        mGifTag = (ImageView) findViewById(com.echat.matisse.R.id.gif);
-        mVideoDuration = (TextView) findViewById(com.echat.matisse.R.id.video_duration);
+        mThumbnail = (ImageView) findViewById(R.id.media_thumbnail);
+        mCheckView = (CheckView) findViewById(R.id.check_view);
+        mGifTag = (ImageView) findViewById(R.id.gif);
+        mVideoDuration = (TextView) findViewById(R.id.video_duration);
 
         mThumbnail.setOnClickListener(this);
         mCheckView.setOnClickListener(this);
