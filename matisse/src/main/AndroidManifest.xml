@@ -14,20 +14,20 @@
   limitations under the License.
   -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.zhihu.matisse2">
+    package="com.zhihu.matisse">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application>
         <activity
-            android:name="com.zhihu.matisse2.ui.MatisseActivity"
+            android:name="com.echat.matisse.ui.MatisseActivity"
             android:multiprocess="true" />
         <activity
-            android:name="com.zhihu.matisse2.internal.ui.AlbumPreviewActivity"
+            android:name="com.echat.matisse.internal.ui.AlbumPreviewActivity"
             android:multiprocess="true" />
         <activity
-            android:name="com.zhihu.matisse2.internal.ui.SelectedPreviewActivity"
+            android:name="com.echat.matisse.internal.ui.SelectedPreviewActivity"
             android:multiprocess="true" />
     </application>
 </manifest>

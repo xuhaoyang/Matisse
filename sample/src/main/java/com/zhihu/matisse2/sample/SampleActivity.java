@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zhihu.matisse2.sample;
+package com.zhihu.matisse.sample;
 
 import android.Manifest;
 import android.content.Intent;
@@ -31,15 +31,15 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.zhihu.matisse2.Matisse;
-import com.zhihu.matisse2.MimeType;
-import com.zhihu.matisse2.engine.impl.GlideEngine;
-import com.zhihu.matisse2.engine.impl.PicassoEngine;
-import com.zhihu.matisse2.filter.Filter;
-import com.zhihu.matisse2.internal.entity.CaptureStrategy;
-import com.zhihu.matisse2.listener.OnCheckedListener;
-import com.zhihu.matisse2.listener.OnMaxFileSizeListener;
-import com.zhihu.matisse2.listener.OnSelectedListener;
+import com.zhihu.matisse.Matisse;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.engine.impl.GlideEngine;
+import com.zhihu.matisse.engine.impl.PicassoEngine;
+import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.CaptureStrategy;
+import com.zhihu.matisse.listener.OnCheckedListener;
+import com.zhihu.matisse.listener.OnMaxFileSizeListener;
+import com.zhihu.matisse.listener.OnSelectedListener;
 
 import java.util.List;
 

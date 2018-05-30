@@ -22,7 +22,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
-        <activity android:name="com.zhihu.matisse2.sample.SampleActivity">
+        <activity android:name="com.zhihu.matisse.sample.SampleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -31,7 +31,7 @@
         </activity>
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.zhihu.matisse2.sample.fileprovider"
+            android:authorities="com.zhihu.matisse.sample.fileprovider"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data

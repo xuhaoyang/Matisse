@@ -15,26 +15,26 @@
   limitations under the License.
   -->
 <resources>
-    <string name="album_name_all">Всі</string>
+    <string name="echat_album_name_all">Всі</string>
 
-    <string name="button_preview">Перегляд</string>
-    <string name="button_apply_default">Застосувати</string>
-    <string name="button_apply">Застосувати(%1$d)</string>
-    <string name="button_back">Назад</string>
-    <string name="photo_grid_capture">Камера</string>
-    <string name="empty_text">Пусто</string>
-    <string name="button_ok">OK</string>
+    <string name="echat_button_preview">Перегляд</string>
+    <string name="echat_button_apply_default">Застосувати</string>
+    <string name="echat_button_apply">Застосувати(%1$d)</string>
+    <string name="echat_button_back">Назад</string>
+    <string name="echat_photo_grid_capture">Камера</string>
+    <string name="echat_empty_text">Пусто</string>
+    <string name="echat_button_ok">OK</string>
 
-    <string name="error_over_count_default">Вы обрали максимальну кількість файлів</string>
+    <string name="echat_error_over_count_default">Вы обрали максимальну кількість файлів</string>
     <plurals name="error_over_count">
         <item quantity="one">Можливо обрати не більше %1$d файла</item>
         <item quantity="few">Можливо обрати не більше %1$d файлів</item>
         <item quantity="many">Можливо обрати не більше %1$d файлів</item>
         <item quantity="other">Можливо обрати не більше %1$d файлів</item>
     </plurals>
-    <string name="error_under_quality">Занадто низька якість</string>
-    <string name="error_over_quality">Занадто висока якість</string>
-    <string name="error_file_type">Непідтримуваний тип файла</string>
-    <string name="error_type_conflict">Неможливо обрати зображення і відео одночасно</string>
-    <string name="error_no_video_activity">Застосунок для перегляду відео не знайдений</string>
+    <string name="echat_error_under_quality">Занадто низька якість</string>
+    <string name="echat_error_over_quality">Занадто висока якість</string>
+    <string name="echat_error_file_type">Непідтримуваний тип файла</string>
+    <string name="echat_error_type_conflict">Неможливо обрати зображення і відео одночасно</string>
+    <string name="echat_error_no_video_activity">Застосунок для перегляду відео не знайдений</string>
 </resources>

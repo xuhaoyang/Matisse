@@ -13,16 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zhihu.matisse2.sample;
+package com.zhihu.matisse.sample;
 
 import android.content.Context;
 import android.graphics.Point;
 
-import com.zhihu.matisse2.MimeType;
-import com.zhihu.matisse2.filter.Filter;
-import com.zhihu.matisse2.internal.entity.IncapableCause;
-import com.zhihu.matisse2.internal.entity.Item;
-import com.zhihu.matisse2.internal.utils.PhotoMetadataUtils;
+import com.zhihu.matisse.MimeType;
+import com.zhihu.matisse.filter.Filter;
+import com.zhihu.matisse.internal.entity.IncapableCause;
+import com.zhihu.matisse.internal.entity.Item;
+import com.zhihu.matisse.internal.utils.PhotoMetadataUtils;
 
 import java.util.HashSet;
 import java.util.Set;
