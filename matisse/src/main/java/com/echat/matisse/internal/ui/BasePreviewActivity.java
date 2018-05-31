@@ -27,6 +27,7 @@ import android.view.WindowManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.IncapableCause;
 import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.internal.model.SelectedItemCollection;

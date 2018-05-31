@@ -19,6 +19,7 @@ package com.echat.matisse.internal.entity;
 import android.content.pm.ActivityInfo;
 import android.support.annotation.StyleRes;
 
+import com.echat.matisse.R;
 import com.echat.matisse.engine.impl.GlideEngine;
 import com.echat.matisse.listener.OnMaxFileSizeListener;
 import com.echat.matisse.MimeType;

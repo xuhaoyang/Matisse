@@ -20,6 +20,7 @@ import android.content.res.Resources;
 import android.net.Uri;
 import android.os.Bundle;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.IncapableCause;
 import com.echat.matisse.internal.entity.Item;
 import com.echat.matisse.internal.entity.SelectionSpec;

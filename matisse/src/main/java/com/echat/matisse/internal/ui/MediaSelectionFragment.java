@@ -26,6 +26,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.model.SelectedItemCollection;
 import com.echat.matisse.internal.ui.widget.MediaGridInset;
 import com.echat.matisse.internal.entity.Album;

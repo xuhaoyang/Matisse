@@ -23,6 +23,7 @@ import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 
+import com.echat.matisse.R;
 import com.echat.matisse.internal.loader.AlbumLoader;
 
 public class Album implements Parcelable {
