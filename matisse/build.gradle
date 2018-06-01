@@ -52,13 +52,15 @@ dependencies {
 // jcenter configuration for novoda's bintray-release
 // $ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
 publish {
-    userOrg = 'zhihu'
-    groupId = 'com.zhihu.android'
+    userOrg = 'xuhaoyang'
+    groupId = 'com.echat'
     artifactId = 'matisse'
-    publishVersion = '0.5.0-beta7'
+    publishVersion = '0.5.0-beta8'
     desc = 'A well-designed local image selector for Android'
     website = 'https://www.zhihu.com/'
+
 }
+
 
 task checkstyle(type:Checkstyle) {
     description 'Runs Checkstyle inspection against matisse sourcesets.'

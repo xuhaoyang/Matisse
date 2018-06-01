@@ -97,7 +97,15 @@ public class MatisseActivity extends AppCompatActivity implements
         setTheme(mSpec.themeId);
         super.onCreate(savedInstanceState);
 
+        if (!mSpec.hasInited) {
+            // When hasInited == false, indicate that MatisseActivity is restarting
+            // after app process was killed.
+            setResult(RESULT_CANCELED);
+            finish();
+            return;
+        }
         setContentView(R.layout.echat_activity_matisse);
+
 
         if (mSpec.needOrientationRestriction()) {
             setRequestedOrientation(mSpec.orientation);
@@ -133,7 +141,7 @@ public class MatisseActivity extends AppCompatActivity implements
 
         mSelectedCollection.onCreate(savedInstanceState);
         if (savedInstanceState != null) {
-            mOriginalEnable=savedInstanceState.getBoolean(CHECK_STATE);
+            mOriginalEnable = savedInstanceState.getBoolean(CHECK_STATE);
         }
         updateBottomToolbar();
 
@@ -153,13 +161,15 @@ public class MatisseActivity extends AppCompatActivity implements
         super.onSaveInstanceState(outState);
         mSelectedCollection.onSaveInstanceState(outState);
         mAlbumCollection.onSaveInstanceState(outState);
-        outState.putBoolean("checkState",mOriginalEnable);
+        outState.putBoolean("checkState", mOriginalEnable);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         mAlbumCollection.onDestroy();
+        mSpec.onCheckedListener = null;
+        mSpec.onSelectedListener = null;
     }
 
     @Override
@@ -288,7 +298,7 @@ public class MatisseActivity extends AppCompatActivity implements
         for (int i = 0; i < selectedCount; i++) {
             Item item = mSelectedCollection.asList().get(i);
 
-            if(item.isImage()){
+            if (item.isImage()) {
                 float size = PhotoMetadataUtils.getSizeInMB(item.size);
                 if (size > mSpec.originalMaxSize) {
                     count++;
@@ -422,4 +432,5 @@ public class MatisseActivity extends AppCompatActivity implements
             mMediaStoreCompat.dispatchCaptureIntent(this, REQUEST_CODE_CAPTURE);
         }
     }
+
 }

@@ -19,6 +19,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.internal.ui.adapter.PreviewPagerAdapter;
 import com.echat.matisse.internal.entity.Album;
 import com.echat.matisse.internal.entity.Item;
@@ -40,7 +41,13 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        if (!SelectionSpec.getInstance().hasInited) {
+            // When hasInited == false, indicate that Activity is restarting
+            // after app process was killed.
+            setResult(RESULT_CANCELED);
+            finish();
+            return;
+        }
         mCollection.onCreate(this, this);
         Album album = getIntent().getParcelableExtra(EXTRA_ALBUM);
         mCollection.load(album);
