@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.zhihu.matisse.sample;
+package com.zhihu.matisse2.sample;
 
 import android.Manifest;
 import android.content.Intent;
@@ -30,16 +30,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.echat.matisse.Matisse;
+import com.echat.matisse.MimeType;
+import com.echat.matisse.engine.impl.GlideEngine;
+import com.echat.matisse.engine.impl.PicassoEngine;
+import com.echat.matisse.filter.Filter;
+import com.echat.matisse.internal.entity.CaptureStrategy;
+import com.echat.matisse.listener.OnCheckedListener;
+import com.echat.matisse.listener.OnMaxFileSizeListener;
+import com.echat.matisse.listener.OnSelectedListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
-import com.zhihu.matisse.Matisse;
-import com.zhihu.matisse.MimeType;
-import com.zhihu.matisse.engine.impl.GlideEngine;
-import com.zhihu.matisse.engine.impl.PicassoEngine;
-import com.zhihu.matisse.filter.Filter;
-import com.zhihu.matisse.internal.entity.CaptureStrategy;
-import com.zhihu.matisse.listener.OnCheckedListener;
-import com.zhihu.matisse.listener.OnMaxFileSizeListener;
-import com.zhihu.matisse.listener.OnSelectedListener;
 
 import java.util.List;
 
@@ -98,6 +98,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                                 public void onSelected(
                                                         @NonNull List<Uri> uriList, @NonNull List<String> pathList) {
                                                     // DO SOMETHING IMMEDIATELY HERE
+                                                    Log.e("onSelected", "onSelected: pathList="+pathList );
+
                                                 }
                                             })
                                             .originalEnable(true)
