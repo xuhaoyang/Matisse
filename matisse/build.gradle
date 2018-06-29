@@ -52,10 +52,10 @@ dependencies {
 // jcenter configuration for novoda's bintray-release
 // $ ./gradlew clean build bintrayUpload -PbintrayUser=BINTRAY_USERNAME -PbintrayKey=BINTRAY_KEY -PdryRun=false
 publish {
-    userOrg = 'xuhaoyang'
-    groupId = 'com.echat'
-    artifactId = 'matisse'
-    publishVersion = '0.5.0-beta8'
+    userOrg = 'echat' // 改成你在 bintray 上注册的用户名
+    groupId = 'com.echatsoft.echatsdk' // 改成你的包名（影响别人引用的第一段）
+    artifactId = 'imagepicker'
+    publishVersion = '1.0.0-beta1'
     desc = 'A well-designed local image selector for Android'
     website = 'https://www.zhihu.com/'
 
