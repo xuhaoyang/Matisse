@@ -26,10 +26,14 @@
     <string name="echat_button_ok">OK</string>
 
     <string name="echat_error_over_count_default">Hai selezionato il numero massimo di elementi</string>
-    <string name="echat_error_over_count">Puoi selezionare fino a %1$d elementi</string>
+    <plurals name="echat_error_over_count">
+        <item quantity="one">Puoi selezionare fino a %1$d elementi</item>
+        <item quantity="other">Puoi selezionare fino a %1$d elementi</item>
+    </plurals>
     <string name="echat_error_under_quality">Sotto qualità</string>
     <string name="echat_error_over_quality">Sopra qualità</string>
     <string name="echat_error_file_type">Tipo di file non supportato</string>
     <string name="echat_error_type_conflict">Non è possibile selezionare contemporaneamente immagini e video</string>
     <string name="echat_error_no_video_activity">Non è stata trovata alcuna app che supporti l\'anteprima video</string>
+
 </resources>

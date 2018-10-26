@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Copyright 2017 Zhihu Inc.
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+<resources>
+    <string name="echat_album_name_all">Wszystkie Media</string>
+
+    <string name="echat_button_preview">Preview</string>
+    <string name="echat_button_apply_default">Zatwierdź</string>
+    <string name="echat_button_apply">Zatwierdź(%1$d)</string>
+    <string name="echat_button_back">Wstecz</string>
+    <string name="echat_photo_grid_capture">Aparat</string>
+    <string name="echat_empty_text">Brak mediów</string>
+    <string name="echat_button_ok">OK</string>
+
+    <string name="echat_error_over_count_default">Osiągnąłeś limit wybieralnych elementów</string>
+    <plurals name="echat_error_over_count">
+        <item quantity="few">Możesz wybrać do %1$d plików</item>
+        <item quantity="many">Możesz wybrać do %1$d plików</item>
+        <item quantity="one">Możesz wybrać do %1$d plików</item>
+        <item quantity="other">Możesz wybrać do %1$d plików</item>
+    </plurals>
+    <string name="echat_error_under_quality">Poniżej jakości</string>
+    <string name="echat_error_over_quality">Powyżej jakości</string>
+    <string name="echat_error_file_type">Niewspierany typ pliku</string>
+    <string name="echat_error_type_conflict">Nie można wybierać obrazów i filmów w tym samym czasie</string>
+    <string name="echat_error_no_video_activity">Nie znaleziono aplikacji wspierającej podgląd wideo</string>
+    <string name="echat_button_original">Oryginał</string>
+    <string name="echat_button_sure_default">Zatwierdź</string>
+    <string name="echat_button_sure">Zatwierdź(%1$d)</string>
+</resources>

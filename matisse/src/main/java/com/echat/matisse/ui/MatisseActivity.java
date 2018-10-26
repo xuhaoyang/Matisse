@@ -275,7 +275,7 @@ public class MatisseActivity extends AppCompatActivity implements
 
             if (mOriginalEnable) {
                 IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                        getString(R.string.error_over_original_size, mSpec.originalMaxSize));
+                        getString(R.string.echat_error_over_original_size, mSpec.originalMaxSize));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());
 
