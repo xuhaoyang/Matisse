@@ -71,8 +71,6 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         super.onCreate(savedInstanceState);
 
         if (!SelectionSpec.getInstance().hasInited) {
-            // When hasInited == false, indicate that Activity is restarting
-            // after app process was killed.
             setResult(RESULT_CANCELED);
             finish();
             return;
@@ -280,11 +278,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             mOriginal.setColor(Color.WHITE);
         }
 
-        int selectedCount = mSelectedCollection.count();
-        if (selectedCount == 0) {
-//            mOriginal.setChecked(false);
-//            mOriginalEnable = false;
-        } else if (countOverMaxSize() > 0) {
+        if (countOverMaxSize() > 0) {
 
             if (mOriginalEnable) {
                 IncapableDialog incapableDialog = IncapableDialog.newInstance("",
@@ -305,7 +299,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         int selectedCount = mSelectedCollection.count();
         for (int i = 0; i < selectedCount; i++) {
             Item item = mSelectedCollection.asList().get(i);
-            if(item.isImage()){
+            if (item.isImage()) {
                 float size = PhotoMetadataUtils.getSizeInMB(item.size);
                 if (size > mSpec.originalMaxSize) {
                     count++;
