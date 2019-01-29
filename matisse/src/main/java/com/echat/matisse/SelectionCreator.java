@@ -166,7 +166,7 @@ public final class SelectionCreator {
      *
      * @param maxImageSelectable Maximum selectable count for image.
      * @param maxVideoSelectable Maximum selectable count for video.
-     * @return
+     * @return  {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator maxSelectablePerMediaType(int maxImageSelectable, int maxVideoSelectable) {
         if (maxImageSelectable < 1 || maxVideoSelectable < 1)
@@ -213,6 +213,17 @@ public final class SelectionCreator {
      */
     public SelectionCreator originalEnable(boolean enable) {
         mSelectionSpec.originalable = enable;
+        return this;
+    }
+
+
+    /**
+     * Determines Whether to hide top and bottom toolbar in PreView mode ,when user tap the picture
+     * @param enable
+     * @return {@link SelectionCreator} for fluent API.
+     */
+    public SelectionCreator autoHideToolbarOnSingleTap(boolean enable) {
+        mSelectionSpec.autoHideToobar = enable;
         return this;
     }
 

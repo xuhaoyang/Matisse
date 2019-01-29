@@ -109,7 +109,7 @@ public final class Matisse {
 
     /**
      * MIME types the selection constrains on.
-     * <p>
+     * <p>error_over_count
      * Types not included in the set will still be shown in the grid but can't be chosen.
      *
      * @param mimeTypes MIME types set user can choose from.

@@ -21,9 +21,11 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.view.animation.FastOutSlowInInterpolator;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -38,9 +40,10 @@ import com.echat.matisse.internal.utils.PhotoMetadataUtils;
 import com.echat.matisse.internal.utils.Platform;
 import com.echat.matisse.internal.entity.Item;
 import com.echat.matisse.internal.ui.widget.CheckView;
+import com.echat.matisse.listener.OnFragmentInteractionListener;
 
 public abstract class BasePreviewActivity extends AppCompatActivity implements View.OnClickListener,
-        ViewPager.OnPageChangeListener {
+        ViewPager.OnPageChangeListener, OnFragmentInteractionListener {
 
     public static final String EXTRA_DEFAULT_BUNDLE = "extra_default_bundle";
     public static final String EXTRA_RESULT_BUNDLE = "extra_result_bundle";
@@ -64,6 +67,10 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
     private LinearLayout mOriginalLayout;
     private CheckRadioView mOriginal;
     protected boolean mOriginalEnable;
+
+    private FrameLayout mBottomToolbar;
+    private FrameLayout mTopToolbar;
+    private boolean mIsToolbarHide = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -105,6 +112,8 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
         mPager.setAdapter(mAdapter);
         mCheckView = (CheckView) findViewById(R.id.check_view);
         mCheckView.setCountable(mSpec.countable);
+        mBottomToolbar = findViewById(R.id.bottom_toolbar);
+        mTopToolbar = findViewById(R.id.top_toolbar);
 
         mCheckView.setOnClickListener(new View.OnClickListener() {
 
@@ -166,7 +175,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 int count = countOverMaxSize();
                 if (count > 0) {
                     IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                            getString(R.string.error_over_original_count, count, mSpec.originalMaxSize));
+                            getString(R.string.echat_error_over_original_count, count, mSpec.originalMaxSize));
                     incapableDialog.show(getSupportFragmentManager(),
                             IncapableDialog.class.getName());
                     return;
@@ -209,6 +218,36 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             sendBackResult(true);
             finish();
         }
+    }
+
+    @Override
+    public void onClick() {
+        if (!mSpec.autoHideToobar) {
+            return;
+        }
+
+        if (mIsToolbarHide) {
+            mTopToolbar.animate()
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .translationYBy(mTopToolbar.getMeasuredHeight())
+                    .start();
+            mBottomToolbar.animate()
+                    .translationYBy(-mBottomToolbar.getMeasuredHeight())
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .start();
+        } else {
+            mTopToolbar.animate()
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .translationYBy(-mTopToolbar.getMeasuredHeight())
+                    .start();
+            mBottomToolbar.animate()
+                    .setInterpolator(new FastOutSlowInInterpolator())
+                    .translationYBy(mBottomToolbar.getMeasuredHeight())
+                    .start();
+        }
+
+        mIsToolbarHide = !mIsToolbarHide;
+
     }
 
     @Override
@@ -267,7 +306,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             mOriginalLayout.setVisibility(View.VISIBLE);
             updateOriginalState();
         } else {
-            mOriginalLayout.setVisibility(View.INVISIBLE);
+            mOriginalLayout.setVisibility(View.GONE);
         }
     }
 
@@ -315,6 +354,12 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
             mSize.setText(PhotoMetadataUtils.getSizeInMB(item.size) + "M");
         } else {
             mSize.setVisibility(View.GONE);
+        }
+
+        if (item.isVideo()) {
+            mOriginalLayout.setVisibility(View.GONE);
+        } else if (mSpec.originalable) {
+            mOriginalLayout.setVisibility(View.VISIBLE);
         }
     }
 

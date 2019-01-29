@@ -38,6 +38,8 @@ android {
 
 dependencies {
     implementation project(':matisse')
+
+//    implementation 'com.zhihu.android:matisse:0.5.1-beta1'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation "com.android.support:appcompat-v7:${supportLibVersion}"

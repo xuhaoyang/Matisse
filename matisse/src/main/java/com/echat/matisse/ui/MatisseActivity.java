@@ -322,7 +322,7 @@ public class MatisseActivity extends AppCompatActivity implements
             int count = countOverMaxSize();
             if (count > 0) {
                 IncapableDialog incapableDialog = IncapableDialog.newInstance("",
-                        getString(R.string.error_over_original_count, count, mSpec.originalMaxSize));
+                        getString(R.string.echat_error_over_original_count, count, mSpec.originalMaxSize));
                 incapableDialog.show(getSupportFragmentManager(),
                         IncapableDialog.class.getName());
                 return;
