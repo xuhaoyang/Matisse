@@ -105,7 +105,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                                 }
                                             })
                                             .originalEnable(true)
-                                            .maxOriginalSize(10)
+                                            .maxOriginalSize(8)
                                             .autoHideToolbarOnSingleTap(true)
                                             .setOnCheckedListener(new OnCheckedListener() {
                                                 @Override
@@ -114,13 +114,13 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                                     Log.e("isChecked", "onCheck: isChecked=" + isChecked);
                                                 }
                                             })
-                                            .maxFileSize(10 * 1024 * 1024)
-                                            .setOnMaxFileSizeListener(new OnMaxFileSizeListener() {
-                                                @Override
-                                                public void triggerLimit() {
-                                                    showToast("超出10M大小，无法上传", Toast.LENGTH_SHORT);
-                                                }
-                                            })
+//                                            .maxFileSize(10 * 1024 * 1024)
+//                                            .setOnMaxFileSizeListener(new OnMaxFileSizeListener() {
+//                                                @Override
+//                                                public void triggerLimit() {
+//                                                    showToast("超出10M大小，无法上传", Toast.LENGTH_SHORT);
+//                                                }
+//                                            })
                                             .forResult(REQUEST_CODE_CHOOSE);
                                     break;
                                 case R.id.dracula:

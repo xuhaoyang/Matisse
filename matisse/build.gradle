@@ -57,32 +57,26 @@ publish {
     userOrg = 'echat' // 改成你在 bintray 上注册的用户名
     groupId = 'com.echatsoft.echatsdk' // 改成你的包名（影响别人引用的第一段）
     artifactId = 'imagepicker'
-    publishVersion = '1.0.0-beta3'
+    publishVersion = '1.0.1'
 
     desc = 'A well-designed local image selector for Android'
     website = 'https://www.zhihu.com/'
 }
 
-//task javadoc(type: Javadoc) {
-//    options.encoding = "utf-8"
-//}
-//
-//checkstyle {
-//    toolVersion = '7.6.1'
-//}
-//
-//tasks.withType(Javadoc) {
-//    options.addStringOption('Xdoclint:none', '-quiet')
-//    options.addStringOption('encoding', 'UTF-8')
-//}
-
-
-task checkstyle(type:Checkstyle) {
-    description 'Runs Checkstyle inspection against matisse sourcesets.'
-    group = 'Code Quality'
-    configFile rootProject.file('checkstyle.xml')
-    ignoreFailures = false
-    showViolations true
-    classpath = files()
-    source 'src/main/java'
+task javadoc(type: Javadoc) {
+    options.encoding = "utf-8"
 }
+
+checkstyle {
+    toolVersion = '7.6.1'
+}
+
+tasks.withType(Javadoc) {
+    options.addStringOption('Xdoclint:none', '-quiet')
+    options.addStringOption('encoding', 'UTF-8')
+}
+
+
+//tasks.withType(JavaCompile) {
+//    options.encoding = 'UTF-8'
+//}
