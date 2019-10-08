@@ -111,6 +111,11 @@ public final class SelectionSpec {
         return showSingleMediaType && MimeType.ofVideo().containsAll(mimeTypeSet);
     }
 
+    public boolean onlyShowGif() {
+        return showSingleMediaType && MimeType.ofGif().equals(mimeTypeSet);
+    }
+
+
     private static final class InstanceHolder {
         private static final SelectionSpec INSTANCE = new SelectionSpec();
     }
