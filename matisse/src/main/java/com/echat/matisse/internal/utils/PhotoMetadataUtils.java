@@ -18,6 +18,7 @@ package com.echat.matisse.internal.utils;
 
 import android.app.Activity;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
 import android.graphics.BitmapFactory;
@@ -31,9 +32,9 @@ import android.util.Log;
 import com.echat.matisse.MimeType;
 import com.echat.matisse.R;
 import com.echat.matisse.filter.Filter;
-import com.echat.matisse.internal.entity.SelectionSpec;
-import com.echat.matisse.internal.entity.Item;
 import com.echat.matisse.internal.entity.IncapableCause;
+import com.echat.matisse.internal.entity.Item;
+import com.echat.matisse.internal.entity.SelectionSpec;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -102,6 +103,7 @@ public final class PhotoMetadataUtils {
     }
 
     public static String getPath(ContentResolver resolver, Uri uri) {
+        Log.e(TAG, "getPath: uri " + uri.toString());
         if (uri == null) {
             return null;
         }
@@ -109,12 +111,15 @@ public final class PhotoMetadataUtils {
         if (SCHEME_CONTENT.equals(uri.getScheme())) {
             Cursor cursor = null;
             try {
-                cursor = resolver.query(uri, new String[]{MediaStore.Images.ImageColumns.DATA},
+                cursor = resolver.query(uri, new String[]{MediaStore.MediaColumns.DATA},
                         null, null, null);
                 if (cursor == null || !cursor.moveToFirst()) {
-                    return null;
+                    String uriString = uri.toString();
+                    Uri externalUri = ContentUris.withAppendedId(MediaStore.Files.getContentUri("external"),
+                            Long.valueOf(uriString.substring(uriString.lastIndexOf("/") + 1)));
+                    return getPath(resolver, externalUri);
                 }
-                return cursor.getString(cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA));
+                return cursor.getString(cursor.getColumnIndex(MediaStore.MediaColumns.DATA));
             } finally {
                 if (cursor != null) {
                     cursor.close();
