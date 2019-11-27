@@ -19,13 +19,13 @@ package com.echat.matisse.internal.entity;
 import android.content.pm.ActivityInfo;
 import android.support.annotation.StyleRes;
 
-import com.echat.matisse.R;
-import com.echat.matisse.engine.impl.GlideEngine;
-import com.echat.matisse.listener.OnMaxFileSizeListener;
 import com.echat.matisse.MimeType;
+import com.echat.matisse.R;
 import com.echat.matisse.engine.ImageEngine;
+import com.echat.matisse.engine.impl.GlideEngine;
 import com.echat.matisse.filter.Filter;
 import com.echat.matisse.listener.OnCheckedListener;
+import com.echat.matisse.listener.OnMaxFileSizeListener;
 import com.echat.matisse.listener.OnSelectedListener;
 
 import java.util.List;
@@ -55,7 +55,7 @@ public final class SelectionSpec {
     public boolean originalable;
     public boolean autoHideToobar;
     public int originalMaxSize;
-    public long maxFileSize;//大小控制
+    public long maxFileSize = -1;//大小控制
     public OnCheckedListener onCheckedListener;
     public OnMaxFileSizeListener onMaxFileSizeListener;
 

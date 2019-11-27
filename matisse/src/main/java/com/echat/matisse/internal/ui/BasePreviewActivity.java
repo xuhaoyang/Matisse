@@ -31,15 +31,15 @@ import android.widget.TextView;
 
 import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.IncapableCause;
+import com.echat.matisse.internal.entity.Item;
 import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.internal.model.SelectedItemCollection;
 import com.echat.matisse.internal.ui.adapter.PreviewPagerAdapter;
 import com.echat.matisse.internal.ui.widget.CheckRadioView;
+import com.echat.matisse.internal.ui.widget.CheckView;
 import com.echat.matisse.internal.ui.widget.IncapableDialog;
 import com.echat.matisse.internal.utils.PhotoMetadataUtils;
 import com.echat.matisse.internal.utils.Platform;
-import com.echat.matisse.internal.entity.Item;
-import com.echat.matisse.internal.ui.widget.CheckView;
 import com.echat.matisse.listener.OnFragmentInteractionListener;
 
 public abstract class BasePreviewActivity extends AppCompatActivity implements View.OnClickListener,
@@ -125,7 +125,7 @@ public abstract class BasePreviewActivity extends AppCompatActivity implements V
                 if (fileSize == -1) {
                     //文件不存在
                 } else {
-                    if (fileSize > maxByteSize) {
+                    if (fileSize > maxByteSize && maxByteSize != -1) {
                         // 通知 超出限制大小
                         if (mSpec.onMaxFileSizeListener != null) {
                             mSpec.onMaxFileSizeListener.triggerLimit();
