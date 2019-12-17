@@ -26,16 +26,16 @@ import android.support.annotation.RequiresApi;
 import android.support.annotation.StyleRes;
 import android.support.v4.app.Fragment;
 
+import com.echat.matisse.engine.ImageEngine;
 import com.echat.matisse.engine.impl.GlideEngine;
 import com.echat.matisse.engine.impl.PicassoEngine;
-import com.echat.matisse.listener.OnMaxFileSizeListener;
-import com.echat.matisse.ui.MatisseActivity;
-import com.echat.matisse.engine.ImageEngine;
 import com.echat.matisse.filter.Filter;
 import com.echat.matisse.internal.entity.CaptureStrategy;
 import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.listener.OnCheckedListener;
+import com.echat.matisse.listener.OnMaxFileSizeListener;
 import com.echat.matisse.listener.OnSelectedListener;
+import com.echat.matisse.ui.MatisseActivity;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -160,13 +160,14 @@ public final class SelectionCreator {
         return this;
     }
 
+
     /**
      * Only useful when {@link SelectionSpec#mediaTypeExclusive} set true and you want to set different maximum
      * selectable files for image and video media types.
      *
      * @param maxImageSelectable Maximum selectable count for image.
      * @param maxVideoSelectable Maximum selectable count for video.
-     * @return  {@link SelectionCreator} for fluent API.
+     * @return {@link SelectionCreator} for fluent API.
      */
     public SelectionCreator maxSelectablePerMediaType(int maxImageSelectable, int maxVideoSelectable) {
         if (maxImageSelectable < 1 || maxVideoSelectable < 1)
@@ -219,6 +220,7 @@ public final class SelectionCreator {
 
     /**
      * Determines Whether to hide top and bottom toolbar in PreView mode ,when user tap the picture
+     *
      * @param enable
      * @return {@link SelectionCreator} for fluent API.
      */

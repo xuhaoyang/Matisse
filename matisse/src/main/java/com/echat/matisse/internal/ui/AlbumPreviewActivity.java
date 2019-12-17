@@ -18,12 +18,13 @@ package com.echat.matisse.internal.ui;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
-import com.echat.matisse.internal.entity.SelectionSpec;
-import com.echat.matisse.internal.ui.adapter.PreviewPagerAdapter;
 import com.echat.matisse.internal.entity.Album;
 import com.echat.matisse.internal.entity.Item;
+import com.echat.matisse.internal.entity.SelectionSpec;
 import com.echat.matisse.internal.model.AlbumMediaCollection;
+import com.echat.matisse.internal.ui.adapter.PreviewPagerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,9 +69,15 @@ public class AlbumPreviewActivity extends BasePreviewActivity implements
     @Override
     public void onAlbumMediaLoad(Cursor cursor) {
         List<Item> items = new ArrayList<>();
+        long start = System.currentTimeMillis();
+        Log.e("Test", "onAlbumMediaLoad: start time  -> " + start);
         while (cursor.moveToNext()) {
             items.add(Item.valueOf(cursor));
         }
+        long end = System.currentTimeMillis();
+        Log.e("Test", "onAlbumMediaLoad: end time  -> " + end);
+        Log.e("Test", "onAlbumMediaLoad: end - start -> " + (end - start) + "ms");
+
 //        cursor.close();
 
         if (items.isEmpty()) {

@@ -61,6 +61,12 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white"
             android:theme="@style/DraculaOverlay"/>
+
+        <Button
+            android:id="@+id/btn_test"
+            android:text="测试"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView

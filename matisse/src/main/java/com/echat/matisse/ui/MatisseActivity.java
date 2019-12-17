@@ -37,7 +37,6 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.echat.matisse.internal.ui.widget.IncapableDialog;
 import com.echat.matisse.R;
 import com.echat.matisse.internal.entity.Album;
 import com.echat.matisse.internal.entity.Item;
@@ -52,6 +51,7 @@ import com.echat.matisse.internal.ui.adapter.AlbumMediaAdapter;
 import com.echat.matisse.internal.ui.adapter.AlbumsAdapter;
 import com.echat.matisse.internal.ui.widget.AlbumsSpinner;
 import com.echat.matisse.internal.ui.widget.CheckRadioView;
+import com.echat.matisse.internal.ui.widget.IncapableDialog;
 import com.echat.matisse.internal.utils.MediaStoreCompat;
 import com.echat.matisse.internal.utils.PathUtils;
 import com.echat.matisse.internal.utils.PhotoMetadataUtils;
@@ -114,6 +114,7 @@ public class MatisseActivity extends AppCompatActivity implements
             if (mSpec.captureStrategy == null)
                 throw new RuntimeException("Don't forget to set CaptureStrategy.");
             mMediaStoreCompat.setCaptureStrategy(mSpec.captureStrategy);
+            mMediaStoreCompat.onCreate(savedInstanceState);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -159,6 +160,9 @@ public class MatisseActivity extends AppCompatActivity implements
         super.onSaveInstanceState(outState);
         mSelectedCollection.onSaveInstanceState(outState);
         mAlbumCollection.onSaveInstanceState(outState);
+        if (mMediaStoreCompat != null) {
+            mMediaStoreCompat.onSaveInstanceState(outState);
+        }
         outState.putBoolean("checkState", mOriginalEnable);
     }
 

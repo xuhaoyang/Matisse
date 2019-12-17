@@ -16,10 +16,14 @@
 package com.zhihu.matisse2.sample;
 
 import android.Manifest;
+import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.Cursor;
+import android.database.DatabaseUtils;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -33,7 +37,6 @@ import android.widget.Toast;
 
 import com.echat.matisse.Matisse;
 import com.echat.matisse.MimeType;
-import com.echat.matisse.engine.impl.GlideEngine;
 import com.echat.matisse.engine.impl.PicassoEngine;
 import com.echat.matisse.filter.Filter;
 import com.echat.matisse.internal.entity.CaptureStrategy;
@@ -61,9 +64,65 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
         findViewById(R.id.zhihu).setOnClickListener(this);
         findViewById(R.id.dracula).setOnClickListener(this);
 
+        findViewById(R.id.btn_test).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //content://media/external/video/media/1417095
+                //content://media/external/video/media/1417110
+                //content://media/external/video/media/1417094
+                //ContentUris.withAppendedId(MediaStore.Files.getContentUri("external"), 1417094)
+                //Uri.parse("content://media/external/video/media/1417110")
+
+//Uri.parse("content://media/external/images/media/1417113")
+
+//                String s = "content://media/external/images/media/1417113";
+//                int beginIndex = s.lastIndexOf("/");
+//                Log.e("TEST", "onClick: " + beginIndex);
+//                Log.e("TEST", "onClick: " + s.substring(beginIndex + 1));
+//                query(Uri.parse("content://media/external/images/media/1417113"));
+//                query(ContentUris.withAppendedId(MediaStore.Files.getContentUri("external"), 1417113));
+//                Uri external = ContentUris.withAppendedId(MediaStore.Files.getContentUri("external"), 1417094);
+//                Log.e("TEST", "onClick: " + external.toString());
+//                query(external);
+                delete();
+                queryDelete();
+            }
+        });
+
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter = new UriAdapter());
+    }
+
+    private void query(Uri uri) {
+        ContentResolver contentResolver = getContentResolver();
+        Cursor cursor = contentResolver.query(uri, null, null, null, null);
+        if (cursor == null || !cursor.moveToFirst()) {
+            Log.e("Sample", "onClick: " + "空或者没有数据");
+        }
+
+        Log.e("Sample", "onClick: " + DatabaseUtils.dumpCursorToString(cursor));
+    }
+
+
+    private void queryDelete() {
+        ContentResolver contentResolver = getContentResolver();
+        Cursor cursor = contentResolver.query(MediaStore.Files.getContentUri("external"),
+                null,
+                MediaStore.MediaColumns.DATA + " like ?",
+                new String[]{"%com.echat.echatjsdemo.single/files/DCIM/Echat%"},
+                null);
+        //Android/data/com.echat.echatjsdemo.single/files/DCIM/Echat
+        Log.w("queryDelete", "onClick: " + DatabaseUtils.dumpCursorToString(cursor));
+    }
+
+    private void delete() {
+        ContentResolver contentResolver = getContentResolver();
+        int external = contentResolver.delete(MediaStore.Files.getContentUri("external"),
+                MediaStore.MediaColumns.DATA + " like ?",
+                new String[]{"%com.echat.echatjsdemo.single/files/DCIM/Echat%"});
+        Log.w("delete", "delete: " + external);
+
     }
 
     @Override
@@ -86,7 +145,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                             .countable(true)
                                             .capture(true)
                                             .captureStrategy(
-                                                    new CaptureStrategy(true, "com.zhihu.matisse.sample.fileprovider","test"))
+                                                    new CaptureStrategy(true, "com.zhihu.matisse.sample.fileprovider", "test"))
                                             .maxSelectable(9)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
                                             .gridExpectedSize(
@@ -125,13 +184,12 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
                                     break;
                                 case R.id.dracula:
                                     Matisse.from(SampleActivity.this)
-                                            .choose(MimeType.ofImage())
+                                            .choose(MimeType.ofAll())
                                             .theme(R.style.Matisse_Dracula)
                                             .countable(false)
                                             .addFilter(new GifSizeFilter(320, 320, 5 * Filter.K * Filter.K))
-                                            .maxSelectable(9)
-                                            .originalEnable(true)
-                                            .maxOriginalSize(10)
+                                            .maxSelectablePerMediaType(9, 1)
+                                            .originalEnable(false)
                                             .imageEngine(new PicassoEngine())
                                             .maxFileSize(20 * 1024 * 1024)
                                             .setOnMaxFileSizeListener(new OnMaxFileSizeListener() {

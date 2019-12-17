@@ -24,11 +24,13 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
 import android.support.v4.os.EnvironmentCompat;
+import android.text.TextUtils;
 
 import com.echat.matisse.internal.entity.CaptureStrategy;
 
@@ -41,6 +43,9 @@ import java.util.List;
 import java.util.Locale;
 
 public class MediaStoreCompat {
+
+    public static final String MEDIA_STORE_COMPAT_CUR_PHOTO_URI = "media_store_compat_cur_photo_uri";
+    public static final String MEDIA_STORE_COMPAT_CUR_PHOTO_PATH = "media_store_compat_cur_photo_path";
 
     private final WeakReference<Activity> mContext;
     private final WeakReference<Fragment> mFragment;
@@ -57,6 +62,28 @@ public class MediaStoreCompat {
         mContext = new WeakReference<>(activity);
         mFragment = new WeakReference<>(fragment);
     }
+
+    public void onSaveInstanceState(Bundle outState) {
+        if (outState == null) {
+            return;
+        }
+
+        if (mCurrentPhotoUri != null) {
+            outState.putString(MEDIA_STORE_COMPAT_CUR_PHOTO_URI, mCurrentPhotoUri.toString());
+        }
+        outState.putString(MEDIA_STORE_COMPAT_CUR_PHOTO_PATH, mCurrentPhotoPath);
+    }
+
+    public void onCreate(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            mCurrentPhotoPath = savedInstanceState.getString(MEDIA_STORE_COMPAT_CUR_PHOTO_PATH, null);
+            String uriStr = savedInstanceState.getString(MEDIA_STORE_COMPAT_CUR_PHOTO_URI, null);
+            if (!TextUtils.isEmpty(uriStr)) {
+                mCurrentPhotoUri = Uri.parse(uriStr);
+            }
+        }
+    }
+
 
     /**
      * Checks whether the device has a camera feature or not.
