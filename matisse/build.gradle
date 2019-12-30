@@ -23,8 +23,6 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.android.minSdkVersion
         targetSdkVersion rootProject.ext.android.targetSdkVersion
-
-
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_7
@@ -57,7 +55,7 @@ publish {
     userOrg = 'echat' // 改成你在 bintray 上注册的用户名
     groupId = 'com.echatsoft.echatsdk' // 改成你的包名（影响别人引用的第一段）
     artifactId = 'imagepicker'
-    publishVersion = '1.0.1-beta4'
+    publishVersion = '1.0.1-beta5'
 
     desc = 'A well-designed local image selector for Android'
     website = 'https://www.zhihu.com/'

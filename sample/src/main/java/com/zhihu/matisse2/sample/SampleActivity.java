@@ -50,6 +50,8 @@ import java.util.List;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
 
+import static android.database.Cursor.FIELD_TYPE_STRING;
+
 public class SampleActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final int REQUEST_CODE_CHOOSE = 23;
@@ -84,8 +86,8 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 //                Uri external = ContentUris.withAppendedId(MediaStore.Files.getContentUri("external"), 1417094);
 //                Log.e("TEST", "onClick: " + external.toString());
 //                query(external);
-                delete();
-                queryDelete();
+//                delete();
+//                queryDelete();
             }
         });
 
@@ -102,6 +104,9 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         Log.e("Sample", "onClick: " + DatabaseUtils.dumpCursorToString(cursor));
+        Log.e("DATA", "getString: DATA -> " + cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA)));
+        Log.e("DATA", "getString: DISPLAY_NAME -> " + cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME)));
+
     }
 
 
@@ -245,6 +250,7 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
             Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)));
+            query(Matisse.obtainResult(data).get(0));
         }
     }
 
