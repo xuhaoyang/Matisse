@@ -16,25 +16,38 @@
 package com.zhihu.matisse2.sample;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.ContentResolver;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.database.DatabaseUtils;
+import android.media.MediaScannerConnection;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.Parcelable;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.blankj.utilcode.util.LogUtils;
+import com.blankj.utilcode.util.RomUtils;
+import com.bumptech.glide.Glide;
 import com.echat.matisse.Matisse;
 import com.echat.matisse.MimeType;
 import com.echat.matisse.engine.impl.PicassoEngine;
@@ -45,12 +58,12 @@ import com.echat.matisse.listener.OnMaxFileSizeListener;
 import com.echat.matisse.listener.OnSelectedListener;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
-
-import static android.database.Cursor.FIELD_TYPE_STRING;
 
 public class SampleActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -88,13 +101,25 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 //                query(external);
 //                delete();
 //                queryDelete();
+//                scanFileOld1();
+//                queryHUAWEIGallery();
+//                openSystemPicker();
+                checkSystemGalary();
             }
         });
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(mAdapter = new UriAdapter());
+
+        findViewById(R.id.btn_open_lib).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openSystemPicker();
+            }
+        });
     }
+
 
     private void query(Uri uri) {
         ContentResolver contentResolver = getContentResolver();
@@ -109,6 +134,165 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
 
     }
 
+    private void scanFileOld1() {
+        Uri uri = Uri.fromFile(new File("/mnt/sdcard/Pictures/TestImages/"));
+        Intent intent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri);
+        sendBroadcast(intent);
+    }
+
+
+    private void scanFile() {
+        MediaScannerConnection.scanFile(this,
+                new String[]{"/sdcard/Pictures/TestImages/"},
+                new String[]{"*/*"},
+                new MediaScannerConnection.MediaScannerConnectionClient() {
+                    @Override
+                    public void onMediaScannerConnected() {
+                        Log.i("Scan", "onMediaScannerConnected ");
+
+                    }
+
+                    @Override
+                    public void onScanCompleted(String path, Uri uri) {
+                        Log.i("Scan", "onScanCompleted: " + path);
+                    }
+                });
+
+        new MediaScannerConnection.OnScanCompletedListener() {
+            @Override
+            public void onScanCompleted(String path, Uri uri) {
+                Log.i("Scan", "onScanCompleted: " + path);
+            }
+        };
+    }
+
+    private static final int REQUEST_SYSTEM_PICKER = 10011;
+
+    private void openSystemImagePicker() {
+        Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.setType("video/*;image/*");
+        startActivityForResult(intent, REQUEST_SYSTEM_PICKER);
+    }
+
+    private void openSystemPicker() {
+        File file = getExternalFilesDir(Environment.DIRECTORY_DCIM);
+        Uri cameraOutputUri = Uri.fromFile(file);
+        Intent intent = getPickIntent(cameraOutputUri);
+        startActivityForResult(intent, REQUEST_SYSTEM_PICKER);
+    }
+
+    private Intent getPickIntent(Uri cameraOutputUri) {
+        final List<Intent> intents = new ArrayList<Intent>();
+
+        if (true) {
+            intents.add(new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI));
+        }
+
+        if (true) {
+            setCameraIntents(intents, cameraOutputUri);
+        }
+
+        LogUtils.i(intents);
+        if (intents.isEmpty()) return null;
+        Intent result = Intent.createChooser(intents.remove(0), null);
+        if (!intents.isEmpty()) {
+            result.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new Parcelable[]{}));
+        }
+        return result;
+    }
+
+
+    //HW
+    final static String HUAWEIGalleryPackageName = "com.android.gallery3d";
+    final static String XIAOMIGalleryPackageName = "com.miui.gallery";
+
+    //Miui com.miui.gallery/.picker.PickGalleryActivity
+    private void checkSystemGalary() {
+        //com.android.gallery3d
+        final PackageManager packageManager = getPackageManager();
+        boolean hasHUAWEIGalary = false;
+        if (RomUtils.isHuawei()) {
+            String version = RomUtils.getRomInfo().getVersion();
+            String[] split = version.split("\\.");
+            if (split.length > 0 && "10".equals(split[0])) {
+                try {
+                    PackageInfo packageInfo = packageManager.getPackageInfo(HUAWEIGalleryPackageName, 0);
+                    if (packageInfo != null) {
+                        hasHUAWEIGalary = true;
+                    }
+                } catch (PackageManager.NameNotFoundException e) {
+                    hasHUAWEIGalary = false;
+                }
+            }
+        }
+
+        hasHUAWEIGalary = true;
+        if (hasHUAWEIGalary) {
+            Intent intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                    .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            final List<ResolveInfo> listGalary = packageManager.queryIntentActivities(intent, 0);
+            LogUtils.i(listGalary);
+            String packageName = null, name = null;
+            for (ResolveInfo resolveInfo : listGalary) {
+                if (HUAWEIGalleryPackageName.equals(resolveInfo.activityInfo.packageName) ||
+                        XIAOMIGalleryPackageName.equals(resolveInfo.activityInfo.packageName)) {
+                    packageName = resolveInfo.activityInfo.packageName;
+                    name = resolveInfo.activityInfo.name;
+                    break;
+                }
+            }
+            if (!TextUtils.isEmpty(name)) {
+                intent.setComponent(new ComponentName(packageName, name));
+                intent.setPackage(packageName);
+                intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                intent.setType("video/*;image/*");
+                startActivityForResult(intent, REQUEST_SYSTEM_PICKER);
+            }
+        }
+    }
+
+    private void queryHUAWEIGallery() {
+        final List<Intent> intents = new ArrayList<Intent>();
+
+        Intent query = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                .addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+        final PackageManager packageManager = getPackageManager();
+        final List<ResolveInfo> listCam = packageManager.queryIntentActivities(query, 0);
+        for (ResolveInfo res : listCam) {
+            LogUtils.i(res);
+            final Intent intent = new Intent(query);
+            final String packageName = res.activityInfo.packageName;
+            final String name = res.activityInfo.name;
+            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+            intent.setPackage(packageName);
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            intent.addFlags(Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION);
+            intent.setType("video/*;image/*");
+            intents.add(intent);
+        }
+        Intent result = Intent.createChooser(intents.remove(0), null);
+        result.putExtra(Intent.EXTRA_INITIAL_INTENTS, intents.toArray(new Parcelable[]{}));
+        startActivityForResult(result, REQUEST_SYSTEM_PICKER);
+    }
+
+    private void setCameraIntents(List<Intent> cameraIntents, Uri output) {
+        final Intent captureIntent = new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE);
+        final PackageManager packageManager = getPackageManager();
+        final List<ResolveInfo> listCam = packageManager.queryIntentActivities(captureIntent, 0);
+        for (ResolveInfo res : listCam) {
+            final String packageName = res.activityInfo.packageName;
+            final Intent intent = new Intent(captureIntent);
+            intent.setComponent(new ComponentName(res.activityInfo.packageName, res.activityInfo.name));
+            intent.setPackage(packageName);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, output);
+            cameraIntents.add(intent);
+        }
+    }
 
     private void queryDelete() {
         ContentResolver contentResolver = getContentResolver();
@@ -251,6 +435,22 @@ public class SampleActivity extends AppCompatActivity implements View.OnClickLis
             mAdapter.setData(Matisse.obtainResult(data), Matisse.obtainPathResult(data));
             Log.e("OnActivityResult ", String.valueOf(Matisse.obtainOriginalState(data)));
             query(Matisse.obtainResult(data).get(0));
+        }
+
+        if (requestCode == REQUEST_SYSTEM_PICKER) {
+            LogUtils.i(data);
+            if (data != null) {
+                Uri data1 = data.getData();
+                LogUtils.i(data1);
+                View root = LayoutInflater.from(this).inflate(R.layout.layout_dialog, null, false);
+                ImageView imageView = root.findViewById(R.id.imageview);
+                Glide.with(this)
+                        .load(data1)
+                        .into(imageView);
+                new AlertDialog.Builder(this).setView(root).setCancelable(true)
+                        .show();
+
+            }
         }
     }
 
